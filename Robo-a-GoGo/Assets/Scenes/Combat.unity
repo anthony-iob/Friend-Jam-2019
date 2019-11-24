@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 385923654}
   - component: {fileID: 385923655}
+  - component: {fileID: 385923656}
   m_Layer: 0
   m_Name: Left Robot
   m_TagString: Untagged
@@ -159,7 +160,8 @@ MonoBehaviour:
   robotNumber: 1
   sprite: {fileID: 510798715}
   state: 0
-  speed: 2
+  speed: 5
+  opponent: {fileID: 1634977991}
   spriteSheet:
   - {fileID: 21300000, guid: d568f5814d39f6e4e9581782f3a004f3, type: 3}
   - {fileID: 21300000, guid: aa98eb9dd532b114e89bd4bf24b9b7f0, type: 3}
@@ -168,6 +170,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ea872a4ebe8196b43ab73939faf9bea0, type: 3}
   - {fileID: 21300000, guid: a75677a7006ee564eb3ec9f3cfa7666a, type: 3}
   - {fileID: 21300000, guid: 14e164fc95a8ae848b3a863f632f1ad7, type: 3}
+--- !u!65 &385923656
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385923653}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7, y: 10, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &510798713
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1634977992}
   - component: {fileID: 1634977991}
+  - component: {fileID: 1634977993}
   m_Layer: 0
   m_Name: Right Robot
   m_TagString: Untagged
@@ -601,7 +617,8 @@ MonoBehaviour:
   robotNumber: 2
   sprite: {fileID: 1150091650}
   state: 0
-  speed: 2
+  speed: 5
+  opponent: {fileID: 385923655}
   spriteSheet:
   - {fileID: 21300000, guid: d568f5814d39f6e4e9581782f3a004f3, type: 3}
   - {fileID: 21300000, guid: aa98eb9dd532b114e89bd4bf24b9b7f0, type: 3}
@@ -625,6 +642,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1634977993
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634977990}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7, y: 10, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1926076589
 GameObject:
   m_ObjectHideFlags: 0
