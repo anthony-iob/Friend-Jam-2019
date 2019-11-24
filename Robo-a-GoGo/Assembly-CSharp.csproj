@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\MusicManager.cs" />
      <Compile Include="Assets\Scripts\RobotController.cs" />
  <Reference Include="Unity.TextMeshPro.Editor">
  <HintPath>D:/Users/Anthony/Documents/Created Games/2019 Friend Jam/FriendJamRepo/Friend-Jam-2019/Robo-a-GoGo/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
