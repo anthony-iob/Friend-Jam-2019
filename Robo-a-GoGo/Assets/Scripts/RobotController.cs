@@ -32,6 +32,9 @@ public class RobotController : MonoBehaviour
     private float speed;
 
     [SerializeField]
+    private RobotController opponent;
+
+    [SerializeField]
     private Sprite[] spriteSheet;
 
     private float lockTime;
@@ -50,6 +53,12 @@ public class RobotController : MonoBehaviour
         lockTime = 0f;
         state = RobotState.Idle;
         pos = gameObject.GetComponent<Transform>();
+        xpos = pos.position.x;
+    }
+
+    public float GetPosition()
+    {
+        return xpos;
     }
 
     // Update is called once per frame
@@ -67,7 +76,7 @@ public class RobotController : MonoBehaviour
             }
             else if (Input.GetButtonDown("Punch" + robotNumber.ToString()))
             {
-                Debug.Log("Punch" + robotNumber.ToString());
+                //Debug.Log("Punch" + robotNumber.ToString());
                 state = RobotState.Punching;
                 lockTime = 1f;
                 TriggerAnimation();
@@ -101,7 +110,33 @@ public class RobotController : MonoBehaviour
                 if (deltaX != 0f)
                 {
                     xpos = pos.position.x;
-                    xpos += Input.GetAxis("Horizontal" + robotNumber.ToString()) * Time.deltaTime;
+                    xpos += Input.GetAxis("Horizontal" + robotNumber.ToString()) * Time.deltaTime *speed;
+
+                    float enemyPos = opponent.GetPosition();
+
+                    if (robotNumber == 1)
+                    {
+                        if (xpos + 4f > enemyPos)
+                        {
+                            xpos = enemyPos - 4f;
+                        }
+                        else if (xpos < -14f)
+                        {
+                            xpos = -14f;
+                        }
+                    }
+                    else
+                    {
+                        if (xpos - 4f < enemyPos)
+                        {
+                            xpos = enemyPos + 4f;
+                        }
+                        else if (xpos > 14f)
+                        {
+                            xpos = 14f;
+                        }
+                    }
+
                     pos.position = new Vector3(xpos, pos.position.y, pos.position.z);
                     if (deltaX > 0)
                     {
