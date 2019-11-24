@@ -35,6 +35,9 @@ public class RobotController : MonoBehaviour
     private RobotController opponent;
 
     [SerializeField]
+    private GameObject punchBox;
+
+    [SerializeField]
     private Sprite[] spriteSheet;
 
     private float lockTime;
@@ -52,6 +55,7 @@ public class RobotController : MonoBehaviour
     {
         lockTime = 0f;
         state = RobotState.Idle;
+        punchBox.SetActive(false);
         pos = gameObject.GetComponent<Transform>();
         xpos = pos.position.x;
     }
@@ -59,6 +63,11 @@ public class RobotController : MonoBehaviour
     public float GetPosition()
     {
         return xpos;
+    }
+
+    public RobotState GetState()
+    {
+        return state;
     }
 
     // Update is called once per frame
@@ -79,6 +88,7 @@ public class RobotController : MonoBehaviour
                 //Debug.Log("Punch" + robotNumber.ToString());
                 state = RobotState.Punching;
                 lockTime = 1f;
+                punchBox.SetActive(true);
                 TriggerAnimation();
             }
             else if (Input.GetButtonDown("Flair" + robotNumber.ToString()))
@@ -167,11 +177,119 @@ public class RobotController : MonoBehaviour
             if (lockTime <= 0f)
             {
                 state = RobotState.Idle;
+                punchBox.SetActive(false);
                 TriggerAnimation();
             }
         }
     }
 
+    /// <summary>
+    /// When it is detected that players have interacted with one of the 5 options, they both determine their results here.
+    /// </summary>
+    private void ResolveInteraction()
+    {
+        switch (opponent.GetState())
+        {
+            case RobotState.Punching:
+                if (state == RobotState.Dodging || state == RobotState.Shooting)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Posing || state == RobotState.Reflecting || state == RobotState.Idle)
+                {
+                    lockTime = 1f;
+                    state = RobotState.Hurt;
+                    TriggerAnimation();
+                }
+                else if (state == RobotState.Punching)
+                {
+                    punchBox.SetActive(false);
+                    //Play impact sound
+                }
+                break;
+            case RobotState.Shooting:
+                if (state == RobotState.Dodging)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Reflecting)
+                {
+                    //REVERSE SHOT
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Posing || state == RobotState.Punching || state == RobotState.Idle)
+                {
+                    lockTime = 1f;
+                    state = RobotState.Hurt;
+                    TriggerAnimation();
+                }
+                break;
+            case RobotState.Dodging:
+                if (state == RobotState.Reflecting || state == RobotState.Posing)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Shooting || state == RobotState.Punching)
+                {
+                    lockTime = 1f;
+                }
+                break;
+            case RobotState.Reflecting:
+                if (state == RobotState.Posing || state == RobotState.Punching)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Dodging)
+                {
+                    lockTime = 1f;
+                }
+                else if (state == RobotState.Shooting)
+                {
+                    lockTime = 1f;
+                    state = RobotState.Hurt;
+                    TriggerAnimation();
+                }
+                break;
+            case RobotState.Posing:
+                if (state == RobotState.Punching || state == RobotState.Shooting)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Reflecting || state == RobotState.Dodging)
+                {
+                    lockTime = 1f;
+                }
+                break;
+            case RobotState.Idle:
+                if (state == RobotState.Punching || state == RobotState.Shooting)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                break;
+            case RobotState.Hurt:
+                lockTime = 1f;
+                GainStyle();
+                break;
+        }
+    }
+
+    private void GainStyle()
+    {
+        Debug.Log("Player " + robotNumber.ToString() + " gains style!");
+        //GOOD STUFF
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        ResolveInteraction();
+    }
     void TriggerAnimation()
     {
         sprite.sprite = spriteSheet[(int)state];
