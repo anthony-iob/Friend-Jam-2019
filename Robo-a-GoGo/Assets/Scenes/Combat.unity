@@ -152,6 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 385923654}
+  - component: {fileID: 385923655}
   m_Layer: 0
   m_Name: Left Robot
   m_TagString: Untagged
@@ -174,6 +175,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &385923655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385923653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b548f0e6b6dfac4e9031662c0fe0d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robotNumber: 1
+  sprite: {fileID: 510798715}
+  state: 0
+  spriteSheet:
+  - {fileID: 21300000, guid: bceb8a196148b51498bc58808c16428d, type: 3}
+  - {fileID: 21300000, guid: 1c826c3ff27afda40ba7d27608918f5a, type: 3}
+  - {fileID: 21300000, guid: 1c826c3ff27afda40ba7d27608918f5a, type: 3}
+  - {fileID: 21300000, guid: 6c108141c93a4c6409707ce47ded3f12, type: 3}
+  - {fileID: 21300000, guid: 6c108141c93a4c6409707ce47ded3f12, type: 3}
+  - {fileID: 21300000, guid: bceb8a196148b51498bc58808c16428d, type: 3}
 --- !u!1 &510798713
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +417,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 400
   field of view: 60
   orthographic: 0
   orthographic size: 5
