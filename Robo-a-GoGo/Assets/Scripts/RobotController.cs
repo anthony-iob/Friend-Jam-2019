@@ -40,6 +40,11 @@ public class RobotController : MonoBehaviour
     [SerializeField]
     private Sprite[] spriteSheet;
 
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private Transform bulletSpawnPoint;
+
     private float lockTime;
 
     private Transform pos;
@@ -48,6 +53,7 @@ public class RobotController : MonoBehaviour
     private float style = 0f;
     private float power = 100f;
 
+    [SerializeField]
     private AudioSource dodgeSFX;
     public AudioClip[] dodgeSounds;
 
@@ -105,6 +111,8 @@ public class RobotController : MonoBehaviour
                 state = RobotState.Shooting;
                 lockTime = 1f;
                 TriggerAnimation();
+                GameObject tempBullet = Instantiate(bullet, bulletSpawnPoint.position, new Quaternion());
+                tempBullet.GetComponent<Bullet>().SetOwner(robotNumber);
             }
             else if (Input.GetButtonDown("Reflect" + robotNumber.ToString()))
             {
@@ -283,7 +291,7 @@ public class RobotController : MonoBehaviour
         }
     }
 
-    private void GainStyle()
+    public void GainStyle()
     {
         Debug.Log("Player " + robotNumber.ToString() + " gains style!");
         //GOOD STUFF
@@ -291,7 +299,36 @@ public class RobotController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ResolveInteraction();
+        if (other.tag == "Bullet")
+        {
+            if (other.GetComponent<Bullet>().GetOwner() != robotNumber)
+            {
+                if (state == RobotState.Reflecting)
+                {
+                    other.GetComponent<Bullet>().SetOwner(robotNumber);
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Dodging)
+                {
+                    lockTime = 1f;
+                    GainStyle();
+                }
+                else if (state == RobotState.Idle || state == RobotState.Punching || state == RobotState.Shooting || state == RobotState.Posing)
+                {
+
+                    Destroy(other, 1f);
+                    lockTime = 1f;
+                    state = RobotState.Hurt;
+                    TriggerAnimation();
+                    opponent.GainStyle();
+                }
+            }
+        }
+        else
+        {
+            ResolveInteraction();
+        }
     }
     void TriggerAnimation()
     {
