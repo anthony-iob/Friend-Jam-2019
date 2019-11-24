@@ -9,7 +9,12 @@ public enum RobotState
 	Shooting = 2,
 	Dodging = 3,
 	Reflecting = 4,
-	Posing = 5
+	Posing = 5,
+    Charging = 6,
+    MovingForward = 7,
+    MovingBackward = 8,
+    Hurt = 9,
+    Finisher = 10
 }
 
 public class RobotController : MonoBehaviour
@@ -24,12 +29,18 @@ public class RobotController : MonoBehaviour
 	private RobotState state;
 
     [SerializeField]
+    private float speed;
+
+    [SerializeField]
     private Sprite[] spriteSheet;
 
     private float lockTime;
 
     private Transform pos;
     private float xpos;
+
+    private float style = 0f;
+    private float power = 100f;
 
 
 
@@ -46,9 +57,6 @@ public class RobotController : MonoBehaviour
     {
         if (state == RobotState.Idle)
         {
-            xpos = pos.position.x;
-            xpos += Input.GetAxis("Horizontal" + robotNumber.ToString()) * Time.deltaTime;
-            pos.position = new Vector3(xpos, pos.position.y, pos.position.z);
 
             //Check for action commands
             if (Input.GetButtonDown("Dodge" + robotNumber.ToString()))
@@ -59,8 +67,62 @@ public class RobotController : MonoBehaviour
             }
             else if (Input.GetButtonDown("Punch" + robotNumber.ToString()))
             {
+                Debug.Log("Punch" + robotNumber.ToString());
                 state = RobotState.Punching;
                 lockTime = 1f;
+                TriggerAnimation();
+            }
+            else if (Input.GetButtonDown("Flair" + robotNumber.ToString()))
+            {
+                state = RobotState.Posing;
+                lockTime = 1f;
+                TriggerAnimation();
+            }
+            else if (Input.GetButtonDown("Shoot" + robotNumber.ToString()))
+            {
+                state = RobotState.Shooting;
+                lockTime = 1f;
+                TriggerAnimation();
+            }
+            else if (Input.GetButtonDown("Reflect" + robotNumber.ToString()))
+            {
+                state = RobotState.Reflecting;
+                lockTime = 1f;
+                TriggerAnimation();
+            }
+            else if (Input.GetButtonDown("Charge" + robotNumber.ToString()))
+            {
+                state = RobotState.Charging;
+                TriggerAnimation();
+            }
+            else
+            {
+                float deltaX = Input.GetAxis("Horizontal" + robotNumber.ToString());
+                if (deltaX != 0f)
+                {
+                    xpos = pos.position.x;
+                    xpos += Input.GetAxis("Horizontal" + robotNumber.ToString()) * Time.deltaTime;
+                    pos.position = new Vector3(xpos, pos.position.y, pos.position.z);
+                    if (deltaX > 0)
+                    {
+                        //Move one way
+                    }
+                    else
+                    {
+                        //Move the other way
+                    }
+                }
+                else
+                {
+                    //Idle
+                }
+            }
+        }
+        else if (state == RobotState.Charging)
+        {
+            if (Input.GetButtonDown("Charge" + robotNumber.ToString()))
+            {
+                state = RobotState.Idle;
                 TriggerAnimation();
             }
         }
