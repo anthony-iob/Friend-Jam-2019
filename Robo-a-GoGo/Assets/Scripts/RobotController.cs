@@ -48,6 +48,8 @@ public class RobotController : MonoBehaviour
     private float style = 0f;
     private float power = 100f;
 
+    private AudioSource dodgeSFX;
+    public AudioClip[] dodgeSounds;
 
 
     // Start is called before the first frame update
@@ -82,6 +84,7 @@ public class RobotController : MonoBehaviour
                 state = RobotState.Dodging;
                 lockTime = 1f;
                 TriggerAnimation();
+                dodgeSFX.PlayOneShot(dodgeSounds[Random.Range(0, dodgeSounds.Length)]);
             }
             else if (Input.GetButtonDown("Punch" + robotNumber.ToString()))
             {
