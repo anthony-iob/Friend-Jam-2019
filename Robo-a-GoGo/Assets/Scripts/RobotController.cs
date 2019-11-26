@@ -55,8 +55,8 @@ public class RobotController : MonoBehaviour
 
     [SerializeField]
     private AudioSource audioSource;
-    public AudioClip[] dodgeSounds;
 
+    public AudioClip[] dodgeSounds;
     public AudioClip[] punchHitSounds;
 
     // Start is called before the first frame update
