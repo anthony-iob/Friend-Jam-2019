@@ -1611,6 +1611,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 388377583d9e4e347b091bc27e450759,
         type: 3}
+    - target: {fileID: 2822302233796040084, guid: 68696f95712962542af743edcc832964,
+        type: 3}
+      propertyPath: spriteSheet.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 38cf615355705874d95b0b79b652d7cb,
+        type: 3}
     - target: {fileID: 2822302233796040085, guid: 68696f95712962542af743edcc832964,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1687,6 +1693,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: c1b66932751406b46bd6cd752a7f30cb,
         type: 3}
+    - target: {fileID: 2822302233679807657, guid: 68696f95712962542af743edcc832964,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822302233679807657, guid: 68696f95712962542af743edcc832964,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68696f95712962542af743edcc832964, type: 3}
 --- !u!1001 &4694038094108303302
@@ -1717,6 +1733,12 @@ PrefabInstance:
       propertyPath: spriteSheet.Array.data[9]
       value: 
       objectReference: {fileID: 21300000, guid: 388377583d9e4e347b091bc27e450759,
+        type: 3}
+    - target: {fileID: 4694038094722197043, guid: 1c40f5c9f564a0243b6f0f0bb78be380,
+        type: 3}
+      propertyPath: spriteSheet.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 38cf615355705874d95b0b79b652d7cb,
         type: 3}
     - target: {fileID: 4694038094722197040, guid: 1c40f5c9f564a0243b6f0f0bb78be380,
         type: 3}
